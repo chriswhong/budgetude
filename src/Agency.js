@@ -22,7 +22,7 @@ class Agency extends Component {
   }
 
   fetchData(agencyid) {
-    fetch(`http://localhost:3000/budget/agency/${agencyid}`)
+    fetch(`${process.env.REACT_APP_HOST}/budget/agency/${agencyid}`)
       .then(d => d.json())
       .then((data) => {
         this.setState({

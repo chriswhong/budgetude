@@ -22,9 +22,8 @@ class BudgetCode extends Component {
   }
 
   fetchData(budgetcodeid) {
-    console.log('fetching')
     const { agencyid, uoaid, responsibilitycenterid } = this.props.match.params;
-    fetch(`http://localhost:3000/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode/${budgetcodeid}`)
+    fetch(`${process.env.REACT_APP_HOST}/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode/${budgetcodeid}`)
       .then(d => d.json())
       .then((data) => {
         this.setState({

@@ -10,7 +10,7 @@ class Agencies extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/budget')
+    fetch(`${process.env.REACT_APP_HOST}/budget`)
       .then(d => d.json())
       .then((data) => {
         this.setState({ agencies: data })
@@ -20,8 +20,6 @@ class Agencies extends Component {
   render() {
     const { agencies } = this.state;
     if (!agencies) return null;
-    // const { agencyid:routeAgencyid } = this.props.match.params;
-    console.log(this.props)
 
 
     return (

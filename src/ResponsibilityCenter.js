@@ -23,7 +23,7 @@ class Agency extends Component {
 
   fetchData(responsibilitycenterid) {
     const { agencyid, uoaid } = this.props.match.params;
-    fetch(`http://localhost:3000/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}`)
+    fetch(`${process.env.REACT_APP_HOST}/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}`)
       .then(d => d.json())
       .then((data) => {
         this.setState({

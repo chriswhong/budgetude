@@ -35,7 +35,7 @@ const Home = (props) => (
   </div>
 )
 
-// http://localhost:3000/agency/mayoralty/uoa/002
+// ${process.env.REACT_APP_HOST}/agency/mayoralty/uoa/002
 const App = () => (
   <Router>
     <Route path="/" component={Home}/>
