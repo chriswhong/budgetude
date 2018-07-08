@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+
 
 import Agencies from './Agencies';
 import Agency from './Agency';
@@ -10,22 +13,21 @@ import BudgetCode from './BudgetCode';
 
 const Home = (props) => (
   <div>
-    <h1>Home</h1>
-    <div className="container">
-      <div className="row">
-        <div className="col">
+    <div className="container-fluid">
+      <div className="row row-height">
+        <div className="col scroll-column">
           <Agencies/>
         </div>
-        <div className="col">
+        <div className="col scroll-column">
           <Route path="/agency/:agencyid" component={Agency}/>
         </div>
-        <div className="col">
+        <div className="col scroll-column">
           <Route path="/agency/:agencyid/uoa/:uoaid" component={UOA} />
         </div>
-        <div className="col">
+        <div className="col scroll-column">
           <Route path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid" component={ResponsibilityCenter} />
         </div>
-        <div className="col">
+        <div className="col scroll-column">
           <Route path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid/budgetcode/:budgetcodeid" component={BudgetCode} />
         </div>
       </div>

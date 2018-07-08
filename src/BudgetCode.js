@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import numeral from 'numeral';
+import Card from './Card';
 
 
 class BudgetCode extends Component {
@@ -45,18 +44,22 @@ class BudgetCode extends Component {
     if (!objectClasses) return null;
 
     return (
-      <ul>
+      <div>
         {objectClasses.map((objectclass) => {
           const { objectclassname, objectclassid, total } = objectclass;
-          const displayTotal = numeral(total).format('0.0a');
+
+          const props = {
+            key: objectclassid,
+            link: `/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode/${budgetcodeid}/objectclass/${objectclassid}`,
+            title: objectclassname,
+            total,
+          }
+
           return (
-            <li key={objectclassid}>
-              <Link to={`/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode/${budgetcodeid}/objectclass/${objectclassid}`}>{objectclassname}</Link>
-              ${displayTotal}
-            </li>
+            <Card {...props}/>
           );
         })}
-      </ul>
+      </div>
     );
   }
 }

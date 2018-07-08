@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import numeral from 'numeral';
-
+import Card from './Card';
 
 class Agency extends Component {
   constructor(props) {
@@ -41,18 +39,22 @@ class Agency extends Component {
     if (!responsibilityCenters) return null;
 
     return (
-      <ul>
+      <div>
         {responsibilityCenters.map((responsibilityCenter) => {
           const { responsibilitycentername, responsibilitycenterid, total } = responsibilityCenter;
-          const displayTotal = numeral(total).format('0.0a');
+
+          const props = {
+            key: responsibilitycenterid,
+            link: `/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}`,
+            title: responsibilitycentername,
+            total,
+          }
+
           return (
-            <li key={responsibilitycenterid}>
-              <Link to={`/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}`}>{responsibilitycentername}</Link>
-              ${displayTotal}
-            </li>
+            <Card {...props}/>
           );
         })}
-      </ul>
+      </div>
     );
   }
 }

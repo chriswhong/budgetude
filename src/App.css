@@ -26,3 +26,37 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.col {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.card {
+  margin-bottom: 0.6rem;
+}
+
+.card-body {
+  padding: 0.6rem;
+}
+
+.row-height{
+  height: 100vh;
+}
+
+.scroll-column {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.scroll-column a {
+  color: inherit
+}
+
+.scroll-column a:hover {
+  text-decoration: none;
+}
+
+.display-total {
+  font-size: 2rem;
+}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import numeral from 'numeral';
+import Card from './Card';
 
 
 class Agency extends Component {
@@ -40,18 +39,22 @@ class Agency extends Component {
     if (!uoas) return null;
 
     return (
-      <ul>
+      <div>
         {uoas.map((uoa) => {
           const { uoaname, uoaid, total } = uoa;
-          const displayTotal = numeral(total).format('0.0a');
+
+          const props = {
+            key: uoaid,
+            link: `/agency/${agencyid}/uoa/${uoaid}`,
+            title: uoaname,
+            total,
+          }
+
           return (
-            <li key={uoaid}>
-              <Link to={`/agency/${agencyid}/uoa/${uoaid}`}>{uoaname}</Link>
-              ${displayTotal}
-            </li>
+            <Card {...props}/>
           );
         })}
-      </ul>
+      </div>
     );
   }
 }
