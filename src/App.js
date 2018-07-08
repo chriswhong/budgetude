@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 
-const Agency = (props) => {
-  const { agencyid } = props.match.params;
-  return (
-    <div>
-      Agency: {agencyid}
-    </div>
-  );
-}
+import Agencies from './Agencies';
+import Agency from './Agency';
+import UOA from './UOA';
+import ResponsibilityCenter from './ResponsibilityCenter';
+import BudgetCode from './BudgetCode';
 
 const Home = (props) => (
   <div>
@@ -18,23 +14,19 @@ const Home = (props) => (
     <div className="container">
       <div className="row">
         <div className="col">
-          <ul>
-            <li><Link to="/agency/002">Mayoralty</Link></li>
-            <li><Link to="/agency/025">Law Department</Link></li>
-            <li><Link to="/agency/030">Department of City Planning</Link></li>
-          </ul>
+          <Agencies/>
         </div>
         <div className="col">
           <Route path="/agency/:agencyid" component={Agency}/>
         </div>
         <div className="col">
-          <Route path="/agency/:agencyid/uoa/:uoaid" component={() => (<div>UOA</div>)} />
+          <Route path="/agency/:agencyid/uoa/:uoaid" component={UOA} />
         </div>
         <div className="col">
-          4 of 5
+          <Route path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid" component={ResponsibilityCenter} />
         </div>
         <div className="col">
-          5 of 5
+          <Route path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid/budgetcode/:budgetcodeid" component={BudgetCode} />
         </div>
       </div>
     </div>
