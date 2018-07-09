@@ -6,17 +6,20 @@ export default (props) => {
   const {link, title, total, selected} = props;
   const displayTotal = numeral(total).format('0.0a');
 
-  const style = {
-    background: selected ? 'gainsboro' : '',
-  }
-  return (
-    <Link to={link}>
-      <div className="card" style={style}>
-        <div className="card-body">
-          <h6 className="card-title">{title}</h6>
-          <strong><div className="display-total">${displayTotal}</div></strong>
-        </div>
+  let selectedClass = '';
+
+  if (selected !== null) selectedClass = selected ? 'active' : 'disabled';
+
+  const card = (
+    <div className={`card ${selectedClass}`}>
+      <div className="card-body">
+        <h6 className="card-title">{title}</h6>
+        <strong><div className="display-total">${displayTotal}</div></strong>
       </div>
-    </Link>
+    </div>
   )
+
+  if (link) return <Link to={link}>{card}</Link>
+
+  return card;
 }

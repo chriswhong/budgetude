@@ -36,6 +36,14 @@
   margin-bottom: 0.6rem;
 }
 
+.card.active {
+  background: steelblue;
+}
+
+.card.disabled {
+  opacity: 0.3;
+}
+
 .card-body {
   padding: 0.6rem;
 }
