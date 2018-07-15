@@ -68,3 +68,16 @@
 .display-total {
   font-size: 2rem;
 }
+
+#root {
+    padding: 60px 15px 0;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: darkblue;
+  cursor: pointer;
+}
