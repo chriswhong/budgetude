@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import Card from './Card';
 import BarChart from './BarChart';
 
 class Agency extends Component {
   constructor(props) {
     super(props);
     // Don't call this.setState() here!
-    this.state = { 
-      agencyname: null,
-      uoas: null,
+    this.state = {
+      name: null,
+      children: null,
     };
   }
 
@@ -18,9 +17,8 @@ class Agency extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps', this.props, nextProps)
-    const {refreshOn} = this.props;
-    const {refreshOn: nextrefreshOn, apiPath} = nextProps;
+    const { refreshOn } = this.props;
+    const { refreshOn: nextrefreshOn, apiPath } = nextProps;
 
     if (refreshOn !== nextrefreshOn) this.fetchData(apiPath);
   }
@@ -29,42 +27,54 @@ class Agency extends Component {
     fetch(`${process.env.REACT_APP_HOST}${apiPath}`)
       .then(d => d.json())
       .then((data) => {
-        const { agencyname, children } = data
-        
-        this.setState({ 
-          agencyname,
+        const { name, children } = data;
+
+        this.setState({
+          name,
           children,
-        })
-      })
+        });
+      });
   }
 
   render() {
-    const { agencyname, children } = this.state;
-    const { linkPrefix, activeSegments, title, activeTitle, inactiveTitle, activeOn, history} = this.props;
-    const isActive = (activeOn === undefined);
+    const { name, children } = this.state;
+    const {
+      linkPrefix,
+      title,
+      history,
+    } = this.props;
+
     if (!children) return null;
 
-    
-    
+    // there are duplicate names that mess up the charts, append a number if a value is duplicated.
+
+    const values = [];
+    children.forEach((child, i) => {
+      const { name: childName } = child;
+      // check if it's in there
+      if (values.includes(childName)) {
+        // check how many times
+        const count = values.filter(d => d === childName).length;
+        children[i].name = `${childName} - ${count}`;
+      }
+      values.push(name);
+    });
+
+
     return (
       <div>
-          {/*<div className="col-md-12 px-0">
-            <h3>{agencyname}</h3>
-            <p className="small">REGULATES MATTERS AFFECTING PUBLIC HEALTH IN THE CITY, INCLUDING THE PROTECTION OF HEALTH AND THE SANITARY SUPERVISION OF FOOD AND
-WATER; OVERSEES THE PROVISION OF MATERNAL AND CHILD HEALTH, SCHOOL HEALTH AND COMMUNICABLE DISEASE PREVENTION; CONDUCTS PROGRAMS
-AND INVESTIGATIONS IN THE FIELD OF ENVIRONMENTAL HEALTH; COMPILES AND MAINTAINS VITAL RECORDS AND STATISTICS; AND, THROUGH THE
-OFFICE OF THE CHIEF MEDICAL EXAMINER, INVESTIGATES VIOLENT, SUSPICIOUS, SUDDEN AND UNEXPECTED DEATHS AND PERFORMS AUTOPSIES. IN
-ADDITION, THE DEPARTMENT PLANS AND ADMINISTERS THE PROVISION OF MENTAL HEALTH, DEVELOPMENTAL DISABILITIES, ALCOHOLISM, CHEMICAL
-DEPENDENCY AND SUBSTANCE ABUSE SERVICES.</p>
-            <p className="lead"><a href="#" className="text-white font-weight-bold">Continue reading...</a></p>
-          </div>*/}
-          <div className="col-md-12 px-0">
-            <BarChart 
-              data={children}
-              history={history}
-              linkPrefix={linkPrefix}
-            />
-          </div>
+        <div className="col-md-12 px-0">
+          <h4>
+            {title}
+            in
+            {name}
+          </h4>
+          <BarChart
+            data={children}
+            history={history}
+            linkPrefix={linkPrefix}
+          />
+        </div>
       </div>
     );
   }
