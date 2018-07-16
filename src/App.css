@@ -28,6 +28,14 @@ body {
   color: #FFF;
 }
 
+a {
+  color: #FFF;
+}
+
+a:hover {
+  color: #686868;
+}
+
 .section-title {
   background: #5daa7c;
   display: inline-block;
@@ -138,5 +146,14 @@ body {
 
 .budget-section {
   border-bottom: 1px solid #c7c7c7;
-  padding: 40px 0 0 0;
+  padding: 15px 0 0 0;
+}
+
+.agency-link {
+  text-align: center;
+  padding: 10px;
+}
+
+.nav-item {
+  padding: 0 15px;
 }

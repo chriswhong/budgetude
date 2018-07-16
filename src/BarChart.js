@@ -24,9 +24,9 @@ class BarChart extends Component {
 
     const svg = d3.select(el);
     const margin = {
-      top: 50,
+      top: 40,
       right: 80,
-      bottom: 120,
+      bottom: 80,
       left: 50,
     };
 
@@ -76,7 +76,7 @@ class BarChart extends Component {
         .attr('y', 10)
         .attr('x', 10)
         .attr('dy', '.35em')
-        .attr('transform', 'rotate(30)')
+        .attr('transform', 'rotate(20)')
         .style('text-anchor', 'start');
 
       g.selectAll('.axis--y')
@@ -128,7 +128,7 @@ class BarChart extends Component {
           .remove();
     }
 
-    return (<svg height={350} width="100%" />);
+    return (<svg height={275} width="100%" />);
   }
 }
 
