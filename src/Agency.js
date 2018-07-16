@@ -57,18 +57,16 @@ class Agency extends Component {
         const count = values.filter(d => d === childName).length;
         children[i].name = `${childName} - ${count}`;
       }
-      values.push(name);
+      values.push(childName);
     });
 
 
     return (
       <div>
         <div className="col-md-12 px-0">
-          <h4>
-            {title}
-            in
-            {name}
-          </h4>
+          <div className="section-title">
+            {title} in {name} {/* eslint-disable-line */}
+          </div>
           <BarChart
             data={children}
             history={history}

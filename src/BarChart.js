@@ -24,7 +24,7 @@ class BarChart extends Component {
 
     const svg = d3.select(el);
     const margin = {
-      top: 20,
+      top: 50,
       right: 80,
       bottom: 120,
       left: 80,
@@ -76,19 +76,19 @@ class BarChart extends Component {
         .attr('y', 10)
         .attr('x', 10)
         .attr('dy', '.35em')
-        .attr('transform', 'rotate(45)')
+        .attr('transform', 'rotate(30)')
         .style('text-anchor', 'start');
 
       g.selectAll('.axis--y')
         .call(d3.axisLeft(y)
           .ticks(3, '$')
           .tickFormat(d => numeral(d).format('$0.0a').toUpperCase()))
-        .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '0.71em')
-        .attr('text-anchor', 'end')
-        .text('Frequency');
+        // .append('text')
+        // .attr('transform', 'rotate(-90)')
+        // .attr('y', 6)
+        // .attr('dy', '0.71em')
+        // .attr('text-anchor', 'end')
+        // .text('Frequency');
 
 
       const bars = g.selectAll('.bar').data(data);
@@ -113,6 +113,26 @@ class BarChart extends Component {
         .attr('y', d => y(d.total))
         .attr('width', x.bandwidth())
         .attr('height', d => height - y(d.total));
+
+
+      const barLabels = g.selectAll('.bar-label').data(data);
+
+      barLabels.exit()
+        .remove();
+
+      barLabels.enter().append('text')
+        .attr('text-anchor', 'middle')
+        .attr('class', 'bar-label')
+        .attr('x', d => x(d.name) + (x.bandwidth() / 2))
+        .attr('y', d => y(d.total) - 10)
+        .text(d => numeral(d.total).format('0.0a').toUpperCase());
+
+
+      barLabels.transition().duration(300)
+        .attr('class', 'bar-label')
+        .attr('x', d => x(d.name) + (x.bandwidth() / 2))
+        .attr('y', d => y(d.total) - 10)
+        .text(d => numeral(d.total).format('0.0a').toUpperCase());
     }
 
     return (<svg height={350} width="100%" />);
