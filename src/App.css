@@ -31,8 +31,8 @@ body {
 .section-title {
   background: #5daa7c;
   display: inline-block;
-  font-size: 1.6rem;
-  padding: 8px 16px 3px 16px;
+  font-size: 1rem;
+  padding: 5px 8px 1px 8px;
   font-weight: 700;
 }
 
@@ -84,16 +84,26 @@ body {
 }
 
 #root {
-    padding: 60px 15px 0;
+    padding: 60px 0 0 0;
 }
 
 .bar {
   fill: #5f6d9e;
+  transition: fill 100ms;
+
 }
 
-.bar:hover {
+.bar-group:hover .bar {
   fill: #f6ff49;
   cursor: pointer;
+}
+
+.bar-group:hover .bar-label {
+  opacity: 1;
+}
+
+.bar-label {
+  transition: opacity 100ms;
 }
 
 .axis, .domain, .tick, .tick line {
@@ -111,4 +121,22 @@ body {
   font-weight: 700;
   font-size: 1.5rem;
   fill: #FFF;
+  opacity: 0;
+}
+
+.big-number {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-top: 3rem;
+}
+
+.big-number-subtitle {
+  font-size: 12px;
+  text-align: center;
+}
+
+.budget-section {
+  border-bottom: 1px solid #c7c7c7;
+  padding: 40px 0 0 0;
 }

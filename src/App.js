@@ -11,16 +11,17 @@ const Home = (props) => {
   const [,, agencyid,, uoaid,, responsibilitycenterid,, budgetcodeid] = pathname.split('/'); // eslint-disable-line
 
   return (
-    <div className="col scroll-column">
+    <div>
       <Route
         path="/agency/:agencyid"
         render={() => (
           <Agency
-            title="Units of Appropriation"
+            childrenTitle="Units of Appropriation"
             apiPath={`/budget/agency/${agencyid}`}
             linkPrefix={`/agency/${agencyid}/uoa`}
             activeOn={uoaid}
             refreshOn={agencyid}
+            entityType="New York City Agency"
             history={props.history}
           />
         )}
@@ -29,11 +30,12 @@ const Home = (props) => {
         path="/agency/:agencyid/uoa/:uoaid"
         render={() => (
           <Agency
-            title="Responsibility Centers"
+            childrenTitle="Responsibility Centers"
             apiPath={`/budget/agency/${agencyid}/uoa/${uoaid}`}
             linkPrefix={`/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter`}
             activeOn={responsibilitycenterid}
             refreshOn={uoaid}
+            entityType="Unit of Appropriation"
             history={props.history}
           />
         )}
@@ -42,11 +44,12 @@ const Home = (props) => {
         path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid"
         render={() => (
           <Agency
-            title="Budget Codes"
+            childrenTitle="Budget Codes"
             apiPath={`/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}`}
             linkPrefix={`/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode`}
             activeOn={budgetcodeid}
             refreshOn={responsibilitycenterid}
+            entityType="Responsibility Center"
             history={props.history}
           />
         )}
@@ -55,11 +58,12 @@ const Home = (props) => {
         path="/agency/:agencyid/uoa/:uoaid/responsibilitycenter/:responsibilitycenterid/budgetcode/:budgetcodeid"
         render={() => (
           <Agency
-            title="Object Classes"
+            childrenTitle="Object Classes"
             apiPath={`/budget/agency/${agencyid}/uoa/${uoaid}/responsibilitycenter/${responsibilitycenterid}/budgetcode/${budgetcodeid}`}
             linkPrefix={null}
             activeOn={undefined}
             refreshOn={budgetcodeid}
+            entityType="Budget Code"
             history={props.history}
           />
         )}

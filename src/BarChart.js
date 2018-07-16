@@ -27,7 +27,7 @@ class BarChart extends Component {
       top: 50,
       right: 80,
       bottom: 120,
-      left: 80,
+      left: 50,
     };
 
     const width = DOMWidth - margin.left - margin.right;
@@ -82,21 +82,17 @@ class BarChart extends Component {
       g.selectAll('.axis--y')
         .call(d3.axisLeft(y)
           .ticks(3, '$')
-          .tickFormat(d => numeral(d).format('$0.0a').toUpperCase()))
-        // .append('text')
-        // .attr('transform', 'rotate(-90)')
-        // .attr('y', 6)
-        // .attr('dy', '0.71em')
-        // .attr('text-anchor', 'end')
-        // .text('Frequency');
+          .tickFormat(d => numeral(d).format('$0.0a').toUpperCase()));
 
 
-      const bars = g.selectAll('.bar').data(data);
 
-      bars.exit()
-        .remove();
+      const bars = g.selectAll('.bar-group').data(data, d => d.name);
 
-      bars.enter().append('rect')
+      const enterBars = bars.enter()
+        .append('g').attr('class', 'bar-group');
+
+      enterBars
+        .append('rect')
         .attr('class', 'bar')
         .attr('x', d => x(d.name))
         .attr('y', d => y(d.total))
@@ -107,32 +103,29 @@ class BarChart extends Component {
           history.push(`${linkPrefix}/${d.id}`);
         });
 
-      bars.transition().duration(300)
-        .attr('class', 'bar')
-        .attr('x', d => x(d.name))
-        .attr('y', d => y(d.total))
-        .attr('width', x.bandwidth())
-        .attr('height', d => height - y(d.total));
-
-
-      const barLabels = g.selectAll('.bar-label').data(data);
-
-      barLabels.exit()
-        .remove();
-
-      barLabels.enter().append('text')
+      enterBars
+        .append('text')
         .attr('text-anchor', 'middle')
         .attr('class', 'bar-label')
         .attr('x', d => x(d.name) + (x.bandwidth() / 2))
         .attr('y', d => y(d.total) - 10)
-        .text(d => numeral(d.total).format('0.0a').toUpperCase());
+        .text(d => numeral(d.total).format('$0.0a').toUpperCase());
 
 
-      barLabels.transition().duration(300)
-        .attr('class', 'bar-label')
+        bars.select('rect')
+        .transition().duration(300)
+        .attr('x', d => x(d.name))
+        .attr('y', d => y(d.total))
+        .attr('width', x.bandwidth())
+        .attr('height', d => height - y(d.total))
+
+        bars.select('text')
         .attr('x', d => x(d.name) + (x.bandwidth() / 2))
         .attr('y', d => y(d.total) - 10)
-        .text(d => numeral(d.total).format('0.0a').toUpperCase());
+        .text(d => numeral(d.total).format('$0.0a').toUpperCase());
+
+        bars.exit()
+          .remove();
     }
 
     return (<svg height={350} width="100%" />);

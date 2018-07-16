@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BarChart from './BarChart';
+import numeral from 'numeral';
 
 class Agency extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Agency extends Component {
     this.state = {
       name: null,
       children: null,
+      total: null,
     };
   }
 
@@ -27,21 +29,23 @@ class Agency extends Component {
     fetch(`${process.env.REACT_APP_HOST}${apiPath}`)
       .then(d => d.json())
       .then((data) => {
-        const { name, children } = data;
+        const { name, children, total } = data;
 
         this.setState({
           name,
           children,
+          total,
         });
       });
   }
 
   render() {
-    const { name, children } = this.state;
+    const { name, children, total } = this.state;
     const {
       linkPrefix,
-      title,
+      childrenTitle,
       history,
+      entityType,
     } = this.props;
 
     if (!children) return null;
@@ -62,16 +66,37 @@ class Agency extends Component {
 
 
     return (
-      <div>
-        <div className="col-md-12 px-0">
-          <div className="section-title">
-            {title} in {name} {/* eslint-disable-line */}
+      <div className="budget-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <small className="entity-description">
+                {entityType}
+              </small>
+              <h3>
+                {name}
+              </h3>
+              <div className="big-number">
+                {numeral(total).format('$0.0a').toUpperCase()}
+              </div>
+              <div className="big-number-subtitle">
+                Fiscal Year 2019 Budget
+              </div>
+            </div>
+            <div className="col-md-8">
+              <div><small>
+                &zwnj;
+              </small></div>
+              <div className="section-title">
+                {childrenTitle}
+              </div>
+              <BarChart
+                data={children}
+                history={history}
+                linkPrefix={linkPrefix}
+              />
+            </div>
           </div>
-          <BarChart
-            data={children}
-            history={history}
-            linkPrefix={linkPrefix}
-          />
         </div>
       </div>
     );
